@@ -1,4 +1,3 @@
-import React from 'react';
 import { mockSpecialists, type SpecialistCard } from './data';
 
 // --- KOMPONENTY WSPÓŁDZIELONE ---
