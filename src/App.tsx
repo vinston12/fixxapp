@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { mockSpecialists, type SpecialistCard } from './data';
 
 // --- KOMPONENTY WSPÓŁDZIELONE ---
@@ -46,11 +47,8 @@ const HeroSection = () => (
       <a href="#elektrycy" className="block w-full md:w-auto">
         <Button variant="primary" className="w-full text-lg py-3 px-6 rounded-xl">⚡ Elektryk</Button>
       </a>
-      <a href="#hydraulicy" className="block w-full md:w-auto">
-        <Button variant="primary" className="w-full text-lg py-3 px-6 rounded-xl">🔧 Hydraulik</Button>
-      </a>
-      <a href="#zlota-raczka" className="block w-full md:w-auto">
-        <Button variant="accent" className="w-full text-lg py-3 px-6 rounded-xl">🔨 Złota rączka</Button>
+      <a href="#naprawa-agd" className="block w-full md:w-auto">
+        <Button variant="primary" className="w-full text-lg py-3 px-6 rounded-xl">🔧 Naprawa AGD</Button>
       </a>
     </div>
   </section>
@@ -94,49 +92,62 @@ const AboutSection = () => (
   </section>
 );
 
-const SpecialistCardComponent = ({ data }: { data: SpecialistCard }) => (
-  <div className="bg-surface rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-border p-4 md:p-5 flex flex-col cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary">
-    
-    <div className="flex items-center gap-4 mb-4">
-      <div className="relative flex-shrink-0">
-        <img src={data.image} alt={data.name} className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-[3px] border-bg shadow-sm" />
-        {data.verified && (
-          <div className="absolute bottom-0 right-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center border-2 border-surface shadow-sm text-xs" title="Zweryfikowany">
-            ✓
+const SpecialistCardComponent = ({ data }: { data: SpecialistCard }) => {
+  const [showPhone, setShowPhone] = useState(false);
+
+  return (
+    <div className="bg-surface rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-border p-4 md:p-5 flex flex-col cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary">
+
+      <div className="flex items-center gap-4 mb-4">
+        <div className="relative flex-shrink-0">
+          <img src={data.image} alt={data.name} className="w-16 h-16 md:w-20 md:h-20 rounded-full object-cover border-[3px] border-bg shadow-sm" />
+          {data.verified && (
+            <div className="absolute bottom-0 right-0 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center border-2 border-surface shadow-sm text-xs" title="Zweryfikowany">
+              ✓
+            </div>
+          )}
+        </div>
+
+        <div>
+          <h3 className="text-xl font-black text-text leading-tight">{data.name}</h3>
+          <p className="text-primary font-extrabold uppercase tracking-widest text-[10px] md:text-xs mt-1 mb-1">{data.category.replace('-', ' ')}</p>
+          <div className="flex items-center text-accent font-black text-base">
+            ⭐ {data.rating} <span className="text-muted text-xs font-medium ml-1.5">({data.reviewCount})</span>
           </div>
-        )}
-      </div>
-      
-      <div>
-        <h3 className="text-xl font-black text-text leading-tight">{data.name}</h3>
-        <p className="text-primary font-extrabold uppercase tracking-widest text-[10px] md:text-xs mt-1 mb-1">{data.category.replace('-', ' ')}</p>
-        <div className="flex items-center text-accent font-black text-base">
-          ⭐ {data.rating} <span className="text-muted text-xs font-medium ml-1.5">({data.reviewCount})</span>
         </div>
       </div>
-    </div>
-    
-    <div className="bg-bg rounded-lg p-3 mb-4 flex justify-between items-center border border-border/60">
-      <div>
-        <span className="block text-[10px] text-muted font-bold uppercase tracking-wide mb-0.5">Cena od</span>
-        <span className="font-black text-text text-base">{data.priceFrom} zł</span>
+
+      <div className="bg-bg rounded-lg p-3 mb-4 flex justify-between items-center border border-border/60">
+        <div>
+          <span className="block text-[10px] text-muted font-bold uppercase tracking-wide mb-0.5">Cena od</span>
+          <span className="font-black text-text text-base">{data.priceFrom} zł</span>
+        </div>
+        <div className="text-right">
+          <span className="block text-[10px] text-muted font-bold uppercase tracking-wide mb-0.5">Dostępność</span>
+          <span className="font-bold text-[#008a00] flex items-center justify-end gap-1.5 text-sm">
+            <span className="w-2 h-2 rounded-full bg-[#008a00] animate-pulse"></span>
+            {data.availabilityLabel}
+          </span>
+        </div>
       </div>
-      <div className="text-right">
-        <span className="block text-[10px] text-muted font-bold uppercase tracking-wide mb-0.5">Dostępność</span>
-        <span className="font-bold text-[#008a00] flex items-center justify-end gap-1.5 text-sm">
-          <span className="w-2 h-2 rounded-full bg-[#008a00] animate-pulse"></span>
-          {data.availabilityLabel}
-        </span>
+
+      <div className="mt-auto flex flex-col gap-2">
+        {data.phone && (
+          <Button
+            variant="accent"
+            className="w-full py-2.5 rounded-lg text-sm shadow-sm"
+            onClick={() => setShowPhone(prev => !prev)}
+          >
+            {showPhone ? `📞 ${data.phone}` : 'Pokaż numer'}
+          </Button>
+        )}
+        <Button variant="primary" className="w-full py-2.5 rounded-lg text-sm shadow-sm">
+          Umów wizytę
+        </Button>
       </div>
     </div>
-    
-    <div className="mt-auto">
-      <Button variant="primary" className="w-full py-2.5 rounded-lg text-sm shadow-sm">
-        Umów wizytę
-      </Button>
-    </div>
-  </div>
-);
+  );
+};
 
 const SpecialistsSection = ({ id, title, specialists }: { id: string, title: string, specialists: SpecialistCard[] }) => (
   <section id={id} className="py-8 md:py-10 scroll-mt-20">
@@ -145,7 +156,7 @@ const SpecialistsSection = ({ id, title, specialists }: { id: string, title: str
         <h2 className="text-2xl md:text-4xl font-black text-primary tracking-tight whitespace-nowrap">{title}</h2>
         <div className="h-1 w-full bg-border rounded-full opacity-50"></div>
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         {specialists.map(specialist => (
           <SpecialistCardComponent key={specialist.id} data={specialist} />
@@ -159,13 +170,13 @@ const ContactAndReviewsSection = () => (
   <section id="opinie" className="py-12 md:py-16 border-t border-border mt-4 scroll-mt-20">
     <div className="max-w-[1280px] mx-auto px-4 md:px-8">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-        
+
         <div>
           <div className="flex items-center gap-4 mb-6">
             <h2 className="text-2xl md:text-3xl font-black text-text whitespace-nowrap">Okiem klientów</h2>
             <div className="h-1 w-full bg-border rounded-full"></div>
           </div>
-          
+
           <div className="flex flex-col gap-4">
             <div className="bg-bg border border-border p-5 rounded-xl flex gap-4 items-start shadow-sm">
               <div className="w-12 h-12 rounded-full bg-border flex items-center justify-center font-bold text-muted text-base flex-shrink-0">KW</div>
@@ -175,7 +186,7 @@ const ContactAndReviewsSection = () => (
                 <p className="text-text font-black text-[10px] md:text-xs uppercase tracking-wide">— Katarzyna W.</p>
               </div>
             </div>
-            
+
             <div className="bg-bg border border-border p-5 rounded-xl flex gap-4 items-start shadow-sm">
               <div className="w-12 h-12 rounded-full bg-border flex items-center justify-center font-bold text-muted text-base flex-shrink-0">MP</div>
               <div>
@@ -192,19 +203,19 @@ const ContactAndReviewsSection = () => (
           <h2 className="text-2xl font-black text-text mb-1">Napisz do nas</h2>
           <p className="text-muted text-sm font-medium mb-5">Odpowiadamy w mniej niż 15 minut!</p>
           <form className="flex flex-col gap-3.5">
-            <input 
-              type="text" 
-              placeholder="Twoje imię" 
+            <input
+              type="text"
+              placeholder="Twoje imię"
               className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface text-text text-sm font-medium focus:outline-none focus:border-primary transition-colors"
             />
-            <input 
-              type="tel" 
-              placeholder="Numer telefonu" 
+            <input
+              type="tel"
+              placeholder="Numer telefonu"
               className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface text-text text-sm font-medium focus:outline-none focus:border-primary transition-colors"
             />
-            <textarea 
-              placeholder="W czym możemy pomóc?" 
-              rows={3} 
+            <textarea
+              placeholder="W czym możemy pomóc?"
+              rows={3}
               className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface text-text text-sm font-medium focus:outline-none focus:border-primary transition-colors resize-none"
             ></textarea>
             <div className="mt-1">
@@ -239,8 +250,7 @@ const LocationFooter = () => (
 
 export default function App() {
   const electricians = mockSpecialists.filter(s => s.category === 'elektryk');
-  const plumbers = mockSpecialists.filter(s => s.category === 'hydraulik');
-  const handymen = mockSpecialists.filter(s => s.category === 'zlota-raczka');
+  const applianceRepair = mockSpecialists.filter(s => s.category === 'naprawa-agd');
 
   return (
     <div className="min-h-screen bg-bg font-sans text-text selection:bg-accent selection:text-text">
@@ -250,8 +260,7 @@ export default function App() {
         <TrustStats />
         <AboutSection />
         <SpecialistsSection id="elektrycy" title="Elektrycy" specialists={electricians} />
-        <SpecialistsSection id="hydraulicy" title="Hydraulicy" specialists={plumbers} />
-        <SpecialistsSection id="zlota-raczka" title="Złota rączka" specialists={handymen} />
+        <SpecialistsSection id="naprawa-agd" title="Naprawa AGD" specialists={applianceRepair} />
         <ContactAndReviewsSection />
       </main>
       <LocationFooter />
