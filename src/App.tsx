@@ -141,9 +141,7 @@ const SpecialistCardComponent = ({ data }: { data: SpecialistCard }) => {
             {showPhone ? `📞 ${data.phone}` : 'Pokaż numer'}
           </Button>
         )}
-        <Button variant="primary" className="w-full py-2.5 rounded-lg text-sm shadow-sm">
-          Umów wizytę
-        </Button>
+
       </div>
     </div>
   );
