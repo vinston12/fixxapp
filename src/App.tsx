@@ -116,9 +116,8 @@ const SpecialistCardComponent = ({ data }: { data: SpecialistCard }) => {
       </div>
 
       <div className="bg-bg rounded-lg p-3 mb-4 border border-border/60">
-        <span className="block text-[10px] text-muted font-bold uppercase tracking-wide mb-0.5">Dostępność</span>
-        <span className="block font-black text-text text-base mb-1.5">⚡ Szybkie terminy</span>
-        <span className="block text-muted text-xs">📞 Zadzwoń – ustalimy termin.</span>
+        <span className="block font-black text-text text-base mb-1">⚡ Szybkie terminy</span>
+        <span className="block text-muted text-xs">📞 Zadzwoń – reagujemy błyskawicznie.</span>
       </div>
 
       <div className="mt-auto flex flex-col gap-2">
