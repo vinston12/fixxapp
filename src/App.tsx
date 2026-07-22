@@ -27,9 +27,7 @@ const Header = () => (
       <nav className="hidden md:flex gap-6 items-center font-bold text-text text-sm">
         <a href="#o-nas" className="hover:text-primary transition-colors">O nas</a>
         <a href="#opinie" className="hover:text-primary transition-colors">Opinie</a>
-        <a href="#kontakt" className="hover:text-primary transition-colors">Kontakt</a>
       </nav>
-      <Button variant="accent" className="hidden md:flex py-2 px-6 rounded-full text-sm">Zadzwoń</Button>
       <button className="md:hidden text-primary p-2 text-xl">☰</button>
     </div>
   </header>
@@ -117,18 +115,12 @@ const SpecialistCardComponent = ({ data }: { data: SpecialistCard }) => {
         </div>
       </div>
 
-      <div className="bg-bg rounded-lg p-3 mb-4 flex justify-between items-center border border-border/60">
-        <div>
-          <span className="block text-[10px] text-muted font-bold uppercase tracking-wide mb-0.5">Cena od</span>
-          <span className="font-black text-text text-base">{data.priceFrom} zł</span>
-        </div>
-        <div className="text-right">
-          <span className="block text-[10px] text-muted font-bold uppercase tracking-wide mb-0.5">Dostępność</span>
-          <span className="font-bold text-[#008a00] flex items-center justify-end gap-1.5 text-sm">
-            <span className="w-2 h-2 rounded-full bg-[#008a00] animate-pulse"></span>
-            {data.availabilityLabel}
-          </span>
-        </div>
+      <div className="bg-bg rounded-lg p-3 mb-4 border border-border/60">
+        <span className="block text-[10px] text-muted font-bold uppercase tracking-wide mb-0.5">Dostępność</span>
+        <span className="font-bold text-[#008a00] flex items-center gap-1.5 text-sm">
+          <span className="w-2 h-2 rounded-full bg-[#008a00] animate-pulse"></span>
+          {data.availabilityLabel}
+        </span>
       </div>
 
       <div className="mt-auto flex flex-col gap-2">
@@ -167,63 +159,29 @@ const SpecialistsSection = ({ id, title, specialists }: { id: string, title: str
 const ContactAndReviewsSection = () => (
   <section id="opinie" className="py-12 md:py-16 border-t border-border mt-4 scroll-mt-20">
     <div className="max-w-[1280px] mx-auto px-4 md:px-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      <div className="flex items-center gap-4 mb-6">
+        <h2 className="text-2xl md:text-3xl font-black text-text whitespace-nowrap">Okiem klientów</h2>
+        <div className="h-1 w-full bg-border rounded-full"></div>
+      </div>
 
-        <div>
-          <div className="flex items-center gap-4 mb-6">
-            <h2 className="text-2xl md:text-3xl font-black text-text whitespace-nowrap">Okiem klientów</h2>
-            <div className="h-1 w-full bg-border rounded-full"></div>
-          </div>
-
-          <div className="flex flex-col gap-4">
-            <div className="bg-bg border border-border p-5 rounded-xl flex gap-4 items-start shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-border flex items-center justify-center font-bold text-muted text-base flex-shrink-0">KW</div>
-              <div>
-                <div className="flex text-accent mb-1.5 text-sm">⭐⭐⭐⭐⭐</div>
-                <p className="text-text font-medium text-sm leading-relaxed mb-2">"Świetna usługa! Fachowiec był u mnie w godzinę. Pełen profesjonalizm i porządek po robocie."</p>
-                <p className="text-text font-black text-[10px] md:text-xs uppercase tracking-wide">— Katarzyna W.</p>
-              </div>
-            </div>
-
-            <div className="bg-bg border border-border p-5 rounded-xl flex gap-4 items-start shadow-sm">
-              <div className="w-12 h-12 rounded-full bg-border flex items-center justify-center font-bold text-muted text-base flex-shrink-0">MP</div>
-              <div>
-                <div className="flex text-accent mb-1.5 text-sm">⭐⭐⭐⭐⭐</div>
-                <p className="text-text font-medium text-sm leading-relaxed mb-2">"Szybko, solidnie i w dobrej cenie. Zdecydowanie najlepsza platforma do szukania pomocy w domu."</p>
-                <p className="text-text font-black text-[10px] md:text-xs uppercase tracking-wide">— Michał P.</p>
-              </div>
-            </div>
+      <div className="flex flex-col gap-4 max-w-[600px]">
+        <div className="bg-bg border border-border p-5 rounded-xl flex gap-4 items-start shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-border flex items-center justify-center font-bold text-muted text-base flex-shrink-0">KW</div>
+          <div>
+            <div className="flex text-accent mb-1.5 text-sm">⭐⭐⭐⭐⭐</div>
+            <p className="text-text font-medium text-sm leading-relaxed mb-2">"Świetna usługa! Fachowiec był u mnie w godzinę. Pełen profesjonalizm i porządek po robocie."</p>
+            <p className="text-text font-black text-[10px] md:text-xs uppercase tracking-wide">— Katarzyna W.</p>
           </div>
         </div>
 
-        <div id="kontakt" className="bg-surface border border-border p-6 md:p-8 rounded-2xl shadow-lg relative overflow-hidden scroll-mt-20">
-          <div className="absolute top-0 left-0 w-full h-1.5 bg-accent"></div>
-          <h2 className="text-2xl font-black text-text mb-1">Napisz do nas</h2>
-          <p className="text-muted text-sm font-medium mb-5">Odpowiadamy w mniej niż 15 minut!</p>
-          <form className="flex flex-col gap-3.5">
-            <input
-              type="text"
-              placeholder="Twoje imię"
-              className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface text-text text-sm font-medium focus:outline-none focus:border-primary transition-colors"
-            />
-            <input
-              type="tel"
-              placeholder="Numer telefonu"
-              className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface text-text text-sm font-medium focus:outline-none focus:border-primary transition-colors"
-            />
-            <textarea
-              placeholder="W czym możemy pomóc?"
-              rows={3}
-              className="w-full px-4 py-3 rounded-lg border-2 border-border bg-surface text-text text-sm font-medium focus:outline-none focus:border-primary transition-colors resize-none"
-            ></textarea>
-            <div className="mt-1">
-              <Button variant="accent" type="button" className="w-full py-3 rounded-lg text-base shadow-sm">
-                Wyślij wiadomość
-              </Button>
-            </div>
-          </form>
+        <div className="bg-bg border border-border p-5 rounded-xl flex gap-4 items-start shadow-sm">
+          <div className="w-12 h-12 rounded-full bg-border flex items-center justify-center font-bold text-muted text-base flex-shrink-0">MP</div>
+          <div>
+            <div className="flex text-accent mb-1.5 text-sm">⭐⭐⭐⭐⭐</div>
+            <p className="text-text font-medium text-sm leading-relaxed mb-2">"Szybko, solidnie i w dobrej cenie. Zdecydowanie najlepsza platforma do szukania pomocy w domu."</p>
+            <p className="text-text font-black text-[10px] md:text-xs uppercase tracking-wide">— Michał P.</p>
+          </div>
         </div>
-
       </div>
     </div>
   </section>
